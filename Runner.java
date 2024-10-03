@@ -17,12 +17,12 @@ public class Runner {
         boolean gameStarted = false;
         int setUpPhase = 0;
         String playerName = "player";
-        String difficultyLevel;
+        String difficultyLevel = "";
         Scanner input = new Scanner(System.in);
 
         // print a welcome message to user
         System.out.println("Hello " + ANSI_YELLOW + "player" + ANSI_RESET + " welcome to " + ANSI_PURPLE + "Monster Fighter!" + ANSI_RESET);
-        System.out.println("Press \"ENTER\" to begin");
+        System.out.println("Press [ENTER] to begin");
 
         while (!gameStarted) {
             String choice = input.nextLine();
@@ -60,6 +60,21 @@ public class Runner {
                 else if(choice.equalsIgnoreCase("3")) {
                     difficultyLevel = (ANSI_RED + "Hard" + ANSI_RESET);
                     setUpPhase += 1;
+                }
+                else {
+                    invalidChoice();
+                }
+            }
+            else if(setUpPhase == 3) {
+                System.out.println("Name: " + ANSI_YELLOW + playerName + ANSI_RESET + "\t Difficulty: " + difficultyLevel + "\t Is this right?");
+                System.out.println(ANSI_GREEN + "[Y] Yes." + ANSI_RESET);
+                System.out.println(ANSI_RED + "[N] No." + ANSI_RESET);
+                if(choice.equalsIgnoreCase("y")) {
+                    System.out.println("Excellent!  Then let us begin");
+                    gameStarted = true;
+                }
+                else if(choice.equalsIgnoreCase("n")) {
+                    setUpPhase = 1;
                 }
                 else {
                     invalidChoice();
@@ -119,7 +134,7 @@ public class Runner {
         System.out.println("   [" + ANSI_RED +"Q" + ANSI_RESET + "] " + ANSI_RED + "Quit" + ANSI_RESET + " the dungeon and flee while " + ANSI_YELLOW + "you" + ANSI_RESET + " can!");
     
         // A is for attack
-        System.out.println("   [" + ANSI_CYAN + "A" + ANSI_RESET + "] " + ANSI_CYAN + "Attack!" + ANSI_RESET + " Charge at " + ANSI_YELLOW + "your enemy" + ANSI_RESET + "with fury!");
+        System.out.println("   [" + ANSI_CYAN + "A" + ANSI_RESET + "] " + ANSI_CYAN + "Attack!" + ANSI_RESET + " Charge at " + ANSI_YELLOW + "your enemy" + ANSI_RESET + " with fury!");
     
         // H is for heal
         System.out.println("   [" + ANSI_GREEN + "H" + ANSI_RESET + "] " + ANSI_GREEN + "Heal." + ANSI_RESET + " Restore " + ANSI_YELLOW + "your" + ANSI_RESET + " strength before battle!");
