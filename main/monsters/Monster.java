@@ -1,4 +1,4 @@
-package monsters;
+package main.monsters;
 
 public abstract class Monster {
     //encapsulated variables
@@ -44,4 +44,7 @@ public abstract class Monster {
         int x = (int) (Math.random() * (maxDamage - minDamage) + minDamage);
         return x;
     }
+
+    public abstract void attack();
+    public abstract void taunt();
 }

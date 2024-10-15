@@ -1,6 +1,13 @@
+package main;
 public class Player {
     //static variables
     public static int health = 100;
+
+    public static void takeDamage(int damage) {
+        health -= damage;
+
+        System.out.println("You took " + damage + " points of damage.");
+    }
 
 
     public static void heal(int currentLevel) {

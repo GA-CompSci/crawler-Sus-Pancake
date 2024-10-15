@@ -1,9 +1,13 @@
+package main;
 import java.util.Scanner;
-import monsters.Monster;
+
+import main.monsters.Monster;
+import main.monsters.Zombie;
+//import java.lang.
 
 public class Runner {
-    
-    public static void main(String[] args) {
+    private static int level = 1;
+    public static void main(String[] args) throws InterruptedException {
         String ANSI_RESET = "\u001B[0m";
         String ANSI_RED = "\u001B[31m";
         String ANSI_GREEN = "\u001B[32m";
@@ -12,7 +16,6 @@ public class Runner {
         String ANSI_CYAN = "\u001B[36m";
     
         // set up key variables
-        int level = 1;
         boolean gameOver = false;
         boolean gameStarted = false;
         int setUpPhase = 0;
@@ -86,7 +89,7 @@ public class Runner {
             printMenu();
             String choice = input.nextLine();
 
-            Monster m = generateMonster(level);
+            Monster m = generateMonster();
             // QUIT
             if(choice.equalsIgnoreCase("q")) {
                 System.out.println(ANSI_RED + "BYE" + ANSI_RESET);
@@ -98,7 +101,8 @@ public class Runner {
             }
             // HEAL
             else if(choice.equalsIgnoreCase("h")) {
-                System.out.println(ANSI_YELLOW + playerName + ANSI_RESET + " " + ANSI_GREEN + "heals" + ANSI_RESET + ".");
+                Player.heal(level);
+                //System.out.println(ANSI_YELLOW + playerName + ANSI_RESET + " " + ANSI_GREEN + "heals" + ANSI_RESET + ".");
             }
             // INVALID CHOICE
             else {
@@ -112,8 +116,13 @@ public class Runner {
         input.close();
     }
 
-    public static Monster generateMonster(int level){
-        return null;
+    public static Monster generateMonster(){
+        int minHit = level;
+        int maxHit = 5 + level;
+        int health = 10 + level;
+        Monster[] constructors = new Monster[] {
+            new Zombie(health, level, minHit, maxHit, "Zombie")
+        };
     }
 
     public static void printMenu(){
@@ -128,6 +137,7 @@ public class Runner {
         // Dungeon-themed menu art
         System.out.println(ANSI_PURPLE + "*************************************************" + ANSI_RESET);
         System.out.println("*                Choose " + ANSI_YELLOW + "your" + ANSI_RESET + " path:              *");
+        System.out.println("Your level: " + level);
         System.out.println(ANSI_PURPLE + "*************************************************" + ANSI_RESET);
     
         // Q is for quit
@@ -142,7 +152,7 @@ public class Runner {
         System.out.println(ANSI_PURPLE + "*************************************************" + ANSI_RESET);
         
         // Extra dungeon atmosphere
-        System.out.println(ANSI_YELLOW + "You" + ANSI_RESET + " hear distant growls... Choose wisely.\n");
+        System.out.println(ANSI_YELLOW + "Your health is " + Player.health + "\n" + ANSI_RESET);
         System.out.print("\nSELECTION: ");
     }
     
