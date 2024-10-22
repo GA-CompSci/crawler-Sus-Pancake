@@ -7,6 +7,7 @@ public abstract class Monster {
     private int minDamage;
     private int maxDamage;
     private String name;
+    private boolean fastAttack;
 
     // blank constructor
     public Monster() {
@@ -15,15 +16,17 @@ public abstract class Monster {
         minDamage = 1;
         maxDamage = 10;
         name = "Monster";
+        fastAttack = false;
     }
 
     // constructor with paramaters
-    public Monster(int h, int l, int min, int max, String n) {
-        health = h;
+    public Monster(int health, int l, int min, int max, String n, boolean fastAttack) {
+        this.health = health;
         this.levelModifier = l;
         this.minDamage = min;
         this.maxDamage = max;
         this.name = n;
+        this.fastAttack = fastAttack;
     }
 
     // health modifier
@@ -34,6 +37,10 @@ public abstract class Monster {
     // accessors
     public int getHealth() {
         return health;
+    }
+
+    public boolean isFastAttack() {
+        return fastAttack;
     }
 
     public int getLevelModifier() {

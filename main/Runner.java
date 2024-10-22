@@ -84,12 +84,26 @@ public class Runner {
                 }
             }
         }
+        
+        Monster m generateMonster();
+        
         // game loop
         while(!gameOver && gameStarted){
+            if(m.isFastAttack()) {
+                m.attack();
+                // did it beat us
+                if(Player.health <= 0) {
+                    m.taunt();
+                    gameOver = true;
+                    break;
+                }
+            }
+
+
+            // monster can attack
             printMenu();
             String choice = input.nextLine();
 
-            Monster m = generateMonster();
             // QUIT
             if(choice.equalsIgnoreCase("q")) {
                 System.out.println(ANSI_RED + "BYE" + ANSI_RESET);
@@ -97,11 +111,13 @@ public class Runner {
             }
             // ATTACK
             else if(choice.equalsIgnoreCase("a")) {
+                // check if monster is defeated
                 System.out.println(ANSI_YELLOW + playerName + ANSI_RESET + " " + ANSI_CYAN + "attacks" + ANSI_RESET + " " + ANSI_YELLOW + "Enemy" + ANSI_RESET + ".");
             }
             // HEAL
             else if(choice.equalsIgnoreCase("h")) {
                 Player.heal(level);
+                // monster taunts
                 //System.out.println(ANSI_YELLOW + playerName + ANSI_RESET + " " + ANSI_GREEN + "heals" + ANSI_RESET + ".");
             }
             // INVALID CHOICE

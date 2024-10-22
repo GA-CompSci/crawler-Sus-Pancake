@@ -2,9 +2,9 @@ package main.monsters;
 import main.Player;
 
 public class Zombie extends Monster {
-    public Zombie(int h, int l, int min, int max, String n) {
+    public Zombie(int health, int l, int min, int max) {
         // call the parent's constructor (aka super class)
-        super(h, l, min, max, n);
+        super(health, l, min, max, "Zombie", false);
     }
 
 
