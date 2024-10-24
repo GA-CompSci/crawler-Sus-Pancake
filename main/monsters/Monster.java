@@ -35,8 +35,16 @@ public abstract class Monster {
     }
 
     // accessors
+    public String status() {
+        return name + " (lvl " + levelModifier + ") - " + health + " hp";
+    }
+    
     public int getHealth() {
         return health;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public boolean isFastAttack() {
@@ -50,6 +58,11 @@ public abstract class Monster {
     public int getDamage() {
         int x = (int) (Math.random() * (maxDamage - minDamage) + minDamage);
         return x;
+    }
+
+    public boolean isDead() {
+        return health <= 0;
+
     }
 
     public abstract void attack();
