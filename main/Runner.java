@@ -9,6 +9,7 @@ import java.util.Random;
 
 import main.monsters.Monster;
 import main.monsters.Zombie;
+import main.monsters.Falsehydra;
 import java.lang.Thread;
 
 public class Runner {
@@ -51,11 +52,12 @@ public class Runner {
 
                 // TODO: check if monster has been defeated
                 if(m.isDead()) {
-                    // advance level
+                    level++;
 
-                    // congragulate player
+                    System.out.println("You haave defeated the " + m.getName() + "!");
 
-                    // generate a new monster
+                    m = generateMonster();
+                    continue;
                 }
             }
             // HEAL
@@ -63,15 +65,24 @@ public class Runner {
                 // call the HEAL method from the Player class and pass the level param
                 Player.heal(level);
 
-                // TODO: monster throws us a taunt
+                m.taunt();
             }
             // INVALID CHOICE
             else System.out.println("\tINVALID choice. Try again.");
 
             // TODO: MONSTER's TURN TO ATTACK IF it didn't go before and is still alive
+            if(!m.isFastAttack()) {
+                m.attack();
+                // did it beat us? if so, taunt then break;
+                if(Player.health <= 0) {
+                    m.taunt();
+                    gameOver = true;
+                }
+            }
         }
 
         // TODO: goodbye message
+        System.out.println("Goodbye! You made it to level " + level + "!");
 
         // we close the scanner to avoid memory leaks
         input.close(); 
@@ -91,8 +102,9 @@ public class Runner {
         
         List<Supplier<Monster>> constructors = Arrays.asList(
             // Each lambda here is like a "blueprint" that builds a specific type of Monster when we call .get()
-            () -> new Zombie(health, level, minHit, maxHit)
+            () -> new Zombie(health, level, minHit, maxHit),
             // Add more monster types here as needed, following the same pattern.
+            () -> new Falsehydra(health)
         );
     
         // Create an instance of the Random class, which helps us choose a random monster from our list
